@@ -1,11 +1,17 @@
+
 import React, { Component } from 'react';
+
+// stateやactionとcomponentを紐づける機能であるconnectをインポートする
 import { connect } from "react-redux"
 
+// actionCreatorをインポートする
 import { increment, decrement} from "../actions"
 
 class App extends Component {
   render() {
+    // 既にpropsにはProvider機能によって集約されたstateやactionCreator(メソッド)がプロパティとして渡ってきている
     const props = this.props
+    // console.log(this)
     return(
       <React.Fragment>
         <div>value: { props.value }</div>
@@ -15,9 +21,13 @@ class App extends Component {
     )
   }
 }
+
 const mapStateToProps = state => ({ value: state.count.value })
+
+// actionCreatorをreducerに渡すmapDispatchToPropsという処理
 const mapDispatchToProps = dispatch => ({
-  increment: () => dispatch(increment()),
+  increment: function(){dispatch(increment())},
+  // 上の記法でも下の記法でもどちらでもい
   decrement: () => dispatch(decrement())
 })
 // 上記の省略形
